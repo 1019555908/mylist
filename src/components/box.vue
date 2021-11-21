@@ -100,10 +100,10 @@
 
 <script>
 // import Vue from "vue";
-import top from "./top";
-import "vant/lib/index.css";
+import top from './top'
+import 'vant/lib/index.css'
 // import { Tab, Tabs } from "vant";
-import "../assets/css/home.css";
+import '../assets/css/home.css'
 // import { Swipe, SwipeItem } from "vant";
 // import { Lazyload } from "vant";
 // import { List } from "vant";
@@ -120,13 +120,13 @@ import "../assets/css/home.css";
 // import bottom from "./bottom.vue";
 // v-else="enname==itemlast.enname"
 //  v-if="enname==itemlast.enname"
-const axios = require("axios");
+const axios = require('axios')
 export default {
   props: {},
   data() {
     return {
       arrbottom: [],
-      enname: "home",
+      enname: 'home',
       toptab: [],
       lunbo: [],
       qwe: 0,
@@ -137,52 +137,54 @@ export default {
       loading: false,
       finished: false,
       page: 0,
-    };
+    }
   },
   methods: {
     onChange(index) {
-      this.qwe = index;
+      this.qwe = index
     },
-    onClick(name ) {
-      console.log(name);
+    onClick(name) {
+      console.log(name)
     },
     onLoad() {
       setTimeout(() => {
-        this.page++;
-        axios.get(`http://81.68.176.64:3000/gundong?page=${this.page}`).then((data) => {
-          console.log(data.data);
-          this.list = this.list.concat(data.data);
-        });
+        this.page++
+        axios
+          .get(`http://81.68.176.64:3000/gundong?page=${this.page}`)
+          .then((data) => {
+            console.log(data.data)
+            this.list = this.list.concat(data.data)
+          })
         // 加载状态结束
-        this.loading = false;
+        this.loading = false
         // 数据全部加载完成
         if (this.list.length >= 93) {
-          this.finished = true;
+          this.finished = true
         }
-      }, 1000);
+      }, 1000)
     },
   },
   created() {
-    axios.get("http://81.68.176.64:3000/hometab").then((data) => {
-      this.arrbottom = data.data;
-    });
-    axios.get("http://81.68.176.64:3000/toptab").then((data) => {
-      this.toptab = data.data;
-    });
-    axios.get("http://81.68.176.64:3000/lunbo").then((data) => {
-      this.lunbo = data.data;
-    });
-    axios.get("http://81.68.176.64:3000/liusi").then((data) => {
-      this.liusi = data.data;
-    });
-    axios.get("http://81.68.176.64:3000/liusi/1").then((data) => {
-      this.liusi1 = data.data;
-    });
+    axios.get('http://81.68.176.64:3000/hometab').then((data) => {
+      this.arrbottom = data.data
+    })
+    axios.get('http://81.68.176.64:3000/toptab').then((data) => {
+      this.toptab = data.data
+    })
+    axios.get('http://81.68.176.64:3000/lunbo').then((data) => {
+      this.lunbo = data.data
+    })
+    axios.get('http://81.68.176.64:3000/liusi').then((data) => {
+      this.liusi = data.data
+    })
+    axios.get('http://81.68.176.64:3000/liusi/1').then((data) => {
+      this.liusi1 = data.data
+    })
   },
   components: {
-    top
+    top,
   },
-};
+}
 </script>
 <style  scoped>
 #app {

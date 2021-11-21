@@ -132,7 +132,7 @@
       <h3>更多服务</h3>
       <div class="serveul">
         <ul>
-          <li v-for="(item,index) of this.more" :key="index">
+          <li v-for="(item,index) of this.more" :key="index" @click="morevip(item.text,item.newurl)">
             <img :src="item.img" alt />
             <p>{{item.text}}</p>
           </li>
@@ -210,6 +210,13 @@ export default {
       window.localStorage.removeItem("localMsg");
       window.localStorage.removeItem("username");
       //   window.sessionStorage.clear();
+    },
+    morevip(text,newurl){
+      console.log(`'点击了更多服务的${text}`)
+      if(text=='管理台'){
+        this.$router.push(`/${newurl}`)
+      }
+      
     },
   },
   beforeCreate() {

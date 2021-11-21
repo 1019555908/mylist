@@ -6,17 +6,10 @@
       </div>
       <div class="tablist1">
         <ul>
-          <li
-            ref="tittab"
-            v-for="(item,index) of tablist"
-            :key="index"
-            @click="titletab(item.sysNo,index)"
-          >
+          <li ref="tittab" v-for="(item,index) of tablist" :key="index" @click="titletab(item.sysNo,index)">
             <router-link :to="`/sort/${item.sysNo}` ?`/sort/${item.sysNo}` : '/sort'">
               <img :src="item.imgUrl" alt style />
-              <p
-                :class="item.sysNo ==$route.path.substring(6)  ? 'titletabactive':'' "
-              >{{item.name}}</p>
+              <p :class="item.sysNo ==$route.path.substring(6)  ? 'titletabactive':'' ">{{item.name}}</p>
             </router-link>
           </li>
         </ul>
@@ -26,22 +19,13 @@
       <div class="top" style="    float: right;
     margin-right: 100px;">
         <ul style="display: flex;">
-          <li
-            style="width: 60px; margin: 0 10px;height: 20px;background-color: #ccc;"
-            v-for="(item,index) of this.top "
-            :key="index"
-            @click="desc(index)"
-          >{{item}}</li>
+          <li style="width: 60px; margin: 0 10px;height: 20px;background-color: #ccc;" v-for="(item,index) of this.top "
+            :key="index" @click="desc(index)">{{item}}</li>
         </ul>
       </div>
       <div class="left">
         <ul>
-          <li
-            ref="lettab"
-            v-for="(item,index) of leftlist"
-            :key="index"
-            @click="lefttab(item.sysNo,index)"
-          >
+          <li ref="lettab" v-for="(item,index) of leftlist" :key="index" @click="lefttab(item.sysNo,index)">
             <div>
               <router-link :to="`/sort/${item.sysNo}` ?`/sort/${item.sysNo}` : '/sort'">
                 <span :class=" item.sysNo ==$route.path.substring(6)?'leftacive':'' ">{{item.name}}</span>
@@ -52,8 +36,7 @@
       </div>
       <div class="right">
         <ul>
-          <li v-for="(item,index) of list" :key="index"
-          @click="shopxq(index)">
+          <li v-for="(item,index) of list" :key="index" @click="shopxq(index)">
             <div class="left_img">
               <img v-show="item.simg" :src="item.simg" class="simg" alt />
               <img :src="item.bimg" class="bimg" alt />
@@ -77,50 +60,51 @@
 </template>
 
 <script>
-import axios from "axios";
-import Vue from "vue";
-import { Icon } from "vant";
-import { Area } from "vant";
+import axios from 'axios'
+import Vue from 'vue'
+import { Icon } from 'vant'
+import { Area } from 'vant'
 // import { areaList } from "@vant/area-data";
-Vue.use(Area);
-Vue.use(Icon);
+Vue.use(Area)
+Vue.use(Icon)
 export default {
-  name: "sort1",
+  name: 'sort1',
   data() {
     return {
       leftlist: [],
       list: [],
       tablist: [],
-      top: ["全部", "价格"],
-      descx: "desc",
-    };
+      top: ['全部', '价格'],
+      descx: 'desc',
+    }
   },
   mounted() {},
   methods: {
-    shopxq(){
-      console.log(this);
+    shopxq() {
+      console.log(this)
     },
     async desc(index) {
       if (index == 1) {
-        var page = this.$route.params.id;
-        this.descx = this.descx == "desc" ? "asc" : "desc";
-        console.log(this.descx);
+        var page = this.$route.params.id
+        this.descx = this.descx == 'desc' ? 'asc' : 'desc'
+        console.log(this.descx)
         //  this.$router.push()
         const data3 = await axios.get(
           `http://81.68.176.64:3000/sort/${page}/${this.descx}`
-        );
-        console.log(data3);
-        this.list = data3.data;
+        )
+        console.log(data3)
+        this.list = data3.data
       }
       if (index == 0) {
-        var page = this.$route.params.id;
+        // eslint-disable-next-line no-redeclare
+        var page = this.$route.params.id
         // this.descx='desc';
-        const data = await axios.get(`http://81.68.176.64:3000/sort/${page}`);
-        console.log(data);
-        this.list = data.data;
+        const data = await axios.get(`http://81.68.176.64:3000/sort/${page}`)
+        console.log(data)
+        this.list = data.data
       }
     },
-    search(){
+    search() {
       this.$router.push('/search')
     },
     titletab(i, index) {
@@ -139,33 +123,33 @@ export default {
   },
 
   async created() {
-    var page = this.$route.params.id;
+    var page = this.$route.params.id
     // console.log(this.$route.params.id);
     const data1 = await axios.get(
       `http://81.68.176.64:3000/sort/${page}/${this.descx}`
-    );
+    )
     // console.log(data1.data);
-    this.list = data1.data;
-    const data2 = await axios.get(`http://81.68.176.64:3000/sortleft`);
+    this.list = data1.data
+    const data2 = await axios.get(`http://81.68.176.64:3000/sortleft`)
     // console.log(data2);
-    this.leftlist = data2.data;
-    const datatab = await axios.get(`http://81.68.176.64:3000/sort2tab`);
-    console.log(datatab.data);
-    this.tablist = datatab.data;
+    this.leftlist = data2.data
+    const datatab = await axios.get(`http://81.68.176.64:3000/sort2tab`)
+    console.log(datatab.data)
+    this.tablist = datatab.data
   },
   watch: {
-    ["$route.path"]() {
-      var page = this.$route.params.id;
+    ['$route.path']() {
+      var page = this.$route.params.id
       axios.get(`http://81.68.176.64:3000/sort/${page}`).then((data) => {
         //这是sort区域所有的请求，如果在update里的话会一直请求导致页面重绘
         // this.leftlist = data.data.menu;
         //    this.list=  data.data.category || data.data.allCategory[0].category;
-        this.list = data.data;
-        console.log(data.data);
-      });
+        this.list = data.data
+        console.log(data.data)
+      })
     },
   },
-};
+}
 </script>
 
 <style lang="less" scoped>
@@ -199,7 +183,7 @@ export default {
     width: 21.875rem;
     height: 1.875rem;
     ::before {
-      content: "";
+      content: '';
       display: inline-block;
       vertical-align: middle;
       width: 21px;
@@ -228,7 +212,7 @@ export default {
           border-radius: 50%;
         }
         p {
-          font-size: .75rem;
+          font-size: 0.75rem;
           color: #000;
         }
       }

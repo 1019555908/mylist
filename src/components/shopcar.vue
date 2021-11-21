@@ -1,5 +1,5 @@
 <template>
-    <div  id="top">
+  <div id="top">
     <div class="header">
       <div @click="back" style="position: absolute;z-index:500;left:0;margin:15px;font-size:23px;">
         <van-icon name="arrow-left" />
@@ -41,14 +41,14 @@
         <div class="inp">
           <input type="checkbox" :checked="result[index]" @click="checked1(item.num,index)" />
         </div>
-        <van-card :price=" item.price" :desc="item.sname" :title="item.name" :thumb="item.img_url" >
+        <van-card :price=" item.price" :desc="item.sname" :title="item.name" :thumb="item.img_url">
           <template #footer>
             <van-stepper v-model="item.num" @change="onChange(item.num,index)" />
           </template>
         </van-card>
         <div style="position: absolute; z-index: 1000; top: 55px; right: 50px;" @click="deletecar(item,index)">
           <img :src="delete_img" alt="" style="width:20px;height:20px;">
-          </div>
+        </div>
       </div>
       <!-- <ul>
         <li v-for="(item,index) of list1 " :key="index">
@@ -79,12 +79,12 @@
                 <p>
                   <img v-lazy="item.simg" alt />
                 </p>
-                <img  v-lazy="item.bimg" alt />
+                <img v-lazy="item.bimg" alt />
               </div>
               <div class="libottom">
                 <div>
                   <p class="name">
-                    <img class="99"  :src="item.snam1?item.sname1:''" alt />
+                    <img class="99" :src="item.snam1?item.sname1:''" alt />
                     {{item.name}}
                   </p>
                   <p class="sname2">{{item.snam2}}</p>
@@ -131,35 +131,35 @@
 </template>
 
 <script>
-import Vue from "vue";
-import { Icon } from "vant";
-import { List } from "vant";
-import less from "less";
-import axios from "axios";
-import { Card } from "vant";
-import { SubmitBar } from "vant";
-import { Stepper } from "vant";
-import { Checkbox, CheckboxGroup } from "vant";
-import { Toast } from 'vant';
+import Vue from 'vue'
+import { Icon } from 'vant'
+import { List } from 'vant'
+import less from 'less'
+import axios from 'axios'
+import { Card } from 'vant'
+import { SubmitBar } from 'vant'
+import { Stepper } from 'vant'
+import { Checkbox, CheckboxGroup } from 'vant'
+import { Toast } from 'vant'
 
-Vue.use(Toast);
-Vue.use(Checkbox);
-Vue.use(CheckboxGroup);
-Vue.use(Stepper);
-Vue.use(SubmitBar);
-Vue.use(Card);
-Vue.use(List);
-Vue.use(less);
-Vue.use(Icon);
+Vue.use(Toast)
+Vue.use(Checkbox)
+Vue.use(CheckboxGroup)
+Vue.use(Stepper)
+Vue.use(SubmitBar)
+Vue.use(Card)
+Vue.use(List)
+Vue.use(less)
+Vue.use(Icon)
 export default {
   data() {
     return {
-      name: "shopcar",
+      name: 'shopcar',
       list: [],
       loading: false,
       finished: false,
       page: 0,
-      place: "河南省郑州市",
+      place: '河南省郑州市',
       poc: true,
       chek: true, //购物车里有东西的时候要边false
       amend: true,
@@ -169,135 +169,150 @@ export default {
       result: [],
       count: 0,
       all1: true,
-      delete_img:require('../assets/img/delete.png') 
-
-    };
+      delete_img: require('../assets/img/delete.png'),
+    }
   },
   async created() {
     const data = await axios.get(
       `http://81.68.176.64:3000/carlist?username=${window.localStorage.username}`
-    );
-    console.log(data.data);
-    this.list1 = data.data;
+    )
+    console.log(data.data)
+    this.list1 = data.data
     if (this.list1 != []) {
-      this.chek = false;
+      this.chek = false
     }
     this.list1.map((item) => {
       item
-      this.result.push(false);
-    });
-    console.log(this.result);
+      this.result.push(false)
+    })
+    console.log(this.result)
   },
   methods: {
-    deletecar(item,index){
-      console.log(item.id1,index,window.localStorage.username);
-      axios.get(`http://81.68.176.64:3000/deletecar?username=${window.localStorage.username}&id1=${item.id1}`,)
-      .then((data)=>{
-      //  console.log( data.data);
-      Toast.success('删除成功')
-      axios.get( `http://81.68.176.64:3000/carlist?username=${window.localStorage.username}`).then(data=>{
-        this.list1 = data.data;
-      })
-    // this.list1 = data.data;
-      //  this.$router.go(0);
-      })
+    deletecar(item, index) {
+      console.log(item.id1, index, window.localStorage.username)
+      axios
+        .get(
+          `http://81.68.176.64:3000/deletecar?username=${window.localStorage.username}&id1=${item.id1}`
+        )
+        .then((data) => {
+           console.log( data.data);
+          Toast.success('删除成功')
+          axios
+            .get(
+              `http://81.68.176.64:3000/carlist?username=${window.localStorage.username}`
+            )
+            .then((data) => {
+              this.list1 = data.data
+            })
+          // this.list1 = data.data;
+          //  this.$router.go(0);
+        })
     },
     all() {
-      this.all1 === true ? (this.all1 = false) : (this.all1 = true);
+      this.all1 === true ? (this.all1 = false) : (this.all1 = true)
       for (var i = 0; i < this.result.length; i++) {
-        this.all1 ? (this.result[i] = false) : (this.result[i] = true);
+        this.all1 ? (this.result[i] = false) : (this.result[i] = true)
         // if(this.result[i]){this.all1=false}
       }
-      console.log(this.result);
-      this.total();
+      console.log(this.result)
+      this.total()
     },
     checked1(val, index) {
       // console.log(arguments);
       // console.log(val, index);
-      this.result[index] = !this.result[index];
-      console.log(this.result);
-      if(this.result.every(item=>{
-      return item===true
-      })){
+      this.result[index] = !this.result[index]
+      console.log(this.result)
+      if (
+        this.result.every((item) => {
+          return item === true
+        })
+      ) {
         this.all1 = false
       }
       // this.count+=
-      this.total();
+      this.total()
     },
     onChange(val, index) {
-      console.log(val, index);
+      console.log(val, index)
       // var total = 0;
-      console.log(this.list1[index].price);
-      console.log(this.result);
-      this.total();
+      console.log(this.list1[index].price)
+      console.log(this.result)
+      this.total()
     },
     total() {
-      var total = 0;
+      var total = 0
       this.result.map((item, index) => {
         // console.log(item, index);
         if (item) {
-          console.log(this.list1[index]);
-          total += this.list1[index].num * this.list1[index].price;
+          console.log(this.list1[index])
+          total += this.list1[index].num * this.list1[index].price
         }
-      });
-      this.count = total.toFixed(2);
+      })
+      this.count = total.toFixed(2)
       // console.log(this.count);
     },
 
-    remove() { //删除全部商品
-      axios.get(`http://81.68.176.64:3000/removecar?username=${window.localStorage.username}`)
+    remove() {
+      //删除全部商品
+      axios
+        .get(
+          `http://81.68.176.64:3000/removecar?username=${window.localStorage.username}`
+        )
         .then((data) => {
-         data
-    axios.get( `http://81.68.176.64:3000/carlist?username=${window.localStorage.username}`)
-
-        });
+          data
+          axios.get(
+            `http://81.68.176.64:3000/carlist?username=${window.localStorage.username}`
+          )
+        })
     },
 
     bj() {
-      this.amend = !this.amend;
+      this.amend = !this.amend
       // this.amend == true ? this.amend = false : this.amend = true;
-      console.log(this.amend);
+      console.log(this.amend)
     },
     che() {},
     back() {
-      this.$router.go(-1);
+      this.$router.go(-1)
     },
     opcaity() {
       // console.log(this.poc);
-      this.poc == true ? (this.poc = false) : (this.poc = true);
+      this.poc == true ? (this.poc = false) : (this.poc = true)
     },
     async onLoad() {
-      this.page++;
-      const data = await axios.get(`http://81.68.176.64:3000/shopcar?page=${this.page}`);
-      this.list = this.list.concat(data.data);
+      this.page++
+      const data = await axios.get(
+        `http://81.68.176.64:3000/shopcar?page=${this.page}`
+      )
+      this.list = this.list.concat(data.data)
       // 加载状态结束
-      this.loading = false;
+      this.loading = false
       // 数据全部加载完成
       if (this.list.length >= 40) {
-        this.finished = true;
+        this.finished = true
       }
     },
     xqy(e) {
-      this.$router.push(`/shopxq/${e}`);
-      console.log(e);
+      this.$router.push(`/shopxq/${e}`)
+      console.log(e)
       // axios.get(`http://81.68.176.64:3000/shopxq?id=${e}`).then((data) => {
       //   data.data
       // });
     },
   },
   beforeCreate() {
-    this.list1 = [];
+    this.list1 = []
   },
 
   updated() {
-    console.log();
+    console.log()
   },
   mounted() {},
-};
+}
 </script>
 
 <style lang="less" scoped>
-body{
+body {
   background-color: #ccc;
 }
 #all {
@@ -452,7 +467,7 @@ body{
   padding: 6px;
   border-bottom: 1px solid #ccc;
 }
-.fl li [class^="tu"] {
+.fl li [class^='tu'] {
   position: absolute;
   background: url(//image.benlailife.com/static/images/top/top_new_c262d734.png)
     no-repeat;

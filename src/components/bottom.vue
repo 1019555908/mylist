@@ -1,83 +1,83 @@
 <template>
   <div style=" width:100%">
     <!-- <router-view></router-view> -->
-   <!-- <router-link to="/home/water"></router-link> -->
- 
-      <!-- <div>{{msg}}</div> -->
-
-        <ul class="homebottom">
-          <li v-for="(itemlast , index) of arrbottom" :key="index">
-            
-            <a :href="`http://www.xcgw.shop:80/#/${itemlast.enname}`">
-              <img class="bfx" :src="itemlast.name2==msg?itemlast.img_url2:itemlast.img_url" alt />
-              <!-- :src="itemlast.enname==msg?(itemlast.name=='eat'?itemlast.img_url:itemlast.img_url2):itemlast.img_url" alt /> -->
- <!-- v-show="$store.state.bottomshow=true" -->
-              <p>{{itemlast.name}}</p>
-            </a>
-          </li>
-        </ul>
-      </div>
-
-
+    <!-- <router-link to="/home/water"></router-link> -->
+    <!-- <div>{{msg}}</div> -->
+    <ul class="homebottom">
+      <li v-for="(itemlast , index) of arrbottom" :key="index">
+        <!-- <a :href="`http://www.xcgw.shop:80/#/${itemlast.enname}`"> -->
+        <a :href="`http://localhost:8080/#/${itemlast.enname}`">
+          <img class="bfx" :src="itemlast.name2==msg?itemlast.img_url2:itemlast.img_url" alt />
+          <!-- :src="itemlast.enname==msg?(itemlast.name=='eat'?itemlast.img_url:itemlast.img_url2):itemlast.img_url" alt /> -->
+          <!-- v-show="$store.state.bottomshow=true" -->
+          <p>{{itemlast.name}}</p>
+        </a>
+      </li>
+    </ul>
+  </div>
 </template>
-
 <script>
-import Vue from "vue";
-import "vant/lib/index.css";
-import { Tab, Tabs } from "vant";
-import "../assets/css/home.css";
-import { List } from "vant";
-import { Cell } from "vant";
-Vue.use(List);
-Vue.use(Tab);
-Vue.use(Tabs);
-Vue.use(Cell);
+import Vue from 'vue'
+import 'vant/lib/index.css'
+import { Tab, Tabs } from 'vant'
+import '../assets/css/home.css'
+import { List } from 'vant'
+import { Cell } from 'vant'
+Vue.use(List)
+Vue.use(Tab)
+Vue.use(Tabs)
+Vue.use(Cell)
 // import bottom from "./bottom.vue";
 // v-else="enname==itemlast.enname"
 //  v-if="enname==itemlast.enname"
-const axios = require("axios");
-import { Tabbar, TabbarItem } from "vant";
+const axios = require('axios')
+import { Tabbar, TabbarItem } from 'vant'
 
-Vue.use(Tabbar);
-Vue.use(TabbarItem);
+Vue.use(Tabbar)
+Vue.use(TabbarItem)
 
 export default {
   // name: "home",
-  props: ["msg"],
+  props: ['msg'],
   data() {
     return {
-      active: "box",
+      active: 'box',
       arrbottom: [],
       // enname1: [],
-    };
-  },
-  watch:{
-    ['$route.path'](){
-      this.active = this.$route.path
     }
+  },
+  watch: {
+    ['$route.path']() {
+      this.active = this.$route.path
+    },
   },
   methods: {
     onChange(index) {
-      this.qwe = index;
+      this.qwe = index
     },
     onClick() {
       // console.log(name,);
     },
   },
   created() {
-    console.log(this.msg);
-    console.log(this.enname);
-console.log();
-    axios.get("http://81.68.176.64:3000/hometab").then((data) => {
-      // console.log(data.data);
-      this.arrbottom = data.data;
+    console.log(this.msg)
+    console.log(this.enname)
+    console.log()
+    axios.get('http://81.68.176.64:3000/hometab').then((data) => {
+      if (data.data.length != 5) {
+        let data1 = data.data.splice(5, 5)
+        console.log('hometab', data1)
+        console.log('hometab', data.data)
+        this.arrbottom = data.data
+      } else {
+        this.arrbottom = data.data
+      }
       // for (var i of this.arrbottom) {
       //   // this.enname1.push(i.enname);
       // }
-    });
-     
+    })
   },
-};
+}
 </script>
 
 <style scoped>
@@ -89,11 +89,11 @@ a {
   color: black;
 }
 body {
-  font-size: .75rem;
+  font-size: 0.75rem;
   overflow: hidden;
 }
 p {
-  font-size: .75rem;
+  font-size: 0.75rem;
 }
 .bottomfixed {
   width: 100%;
@@ -104,7 +104,8 @@ p {
   border-top: 1px solid #ccc;
   position: fixed;
   bottom: 0;
-  width: 100%;z-index: 999999;
+  width: 100%;
+  z-index: 999999;
   height: 3.9rem;
   display: flex;
   flex-wrap: nowrap;
@@ -114,11 +115,11 @@ p {
 li {
   width: 4.6875rem;
   height: 3.0625rem;
-  padding: .3125rem;
+  padding: 0.3125rem;
   list-style: none;
 }
 li .bfx {
-  margin-top: .3125rem;
+  margin-top: 0.3125rem;
   width: 1.5rem;
   height: 1.5rem;
 }
@@ -138,7 +139,7 @@ li .bfx {
   width: 2.125rem;
   height: 2.75rem;
   line-height: 2.75rem;
-  padding: 0 2.0625rem 0 .625rem;
+  padding: 0 2.0625rem 0 0.625rem;
 }
 .inp div:nth-child(1) span {
   display: block;
@@ -163,8 +164,8 @@ li .bfx {
   z-index: 0;
 }
 .inp :nth-child(2) input {
-  padding: .3125rem 2.1875rem .3125rem 2rem;
-  margin-top: .4375rem;
+  padding: 0.3125rem 2.1875rem 0.3125rem 2rem;
+  margin-top: 0.4375rem;
   /* position: absolute; */
   overflow: hidden;
   background-position: -0.375rem -42.625rem;
@@ -181,10 +182,9 @@ li .bfx {
   box-sizing: border-box;
 }
 .inp :nth-child(3) {
-  font-size: .9375rem;
-  padding: 0 .625rem;
+  font-size: 0.9375rem;
+  padding: 0 0.625rem;
   line-height: 2.75rem;
   color: #abd13e;
 }
-
 </style>

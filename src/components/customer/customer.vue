@@ -7,10 +7,7 @@
         <van-icon name="arrow-left" />
       </div>
       <div class="tit">
-        <img
-          src="https://img.sobot.com/console/60850bc7c25641f5882c318873bb5966/userImage/20161204150206156.JPG"
-          alt
-        />
+        <img src="https://img.sobot.com/console/60850bc7c25641f5882c318873bb5966/userImage/20161204150206156.JPG" alt />
         <p>本来生活本姑娘</p>
       </div>
     </div>
@@ -81,69 +78,66 @@
       <van-field left-icon="service-o" v-model="text" placeholder="请输入文本" label="文本" />
 
       <slot v-bind:sendname="sendname">
-        <van-button
-          style="float:right;    margin-top: -28px;"
-          @click="send"
-          type="primary"
-          size="small"
-        >{{sendname}}</van-button>
+        <van-button style="float:right;    margin-top: -28px;" @click="send" type="primary" size="small">{{sendname}}
+        </van-button>
       </slot>
     </div>
   </div>
 </template>
 
 <script>
-import Vue from "vue";
-import { Field } from "vant";
-import { Button } from "vant";
-const axios = require("axios");
-import { Toast } from "vant";
-Vue.use(Toast);
+import Vue from 'vue'
+import { Field } from 'vant'
+import { Button } from 'vant'
+const axios = require('axios')
+import { Toast } from 'vant'
+Vue.use(Toast)
 
-Vue.use(Button);
-Vue.use(Field);
+Vue.use(Button)
+Vue.use(Field)
 export default {
-  name: "customer",
+  name: 'customer',
   data() {
     return {
-      value: "",
-      text: "",
-      sendname: "发送",
+      value: '',
+      text: '',
+      sendname: '发送',
       message: [],
       kefu: [],
       mine: [],
-    };
+    }
   },
   mounted() {},
   updated() {
-    document.getElementsByTagName(
-      "body"
-    )[0].scrollTop = document.getElementsByTagName("body")[0].scrollHeight;
+    document.getElementsByTagName('body')[0].scrollTop =
+      document.getElementsByTagName('body')[0].scrollHeight
   },
   methods: {
     back() {
-      this.$router.go(-1);
+      this.$router.go(-1)
     },
     async send() {
       //   console.log(window.pageYOffset);
-      console.log("发送l", this.text);
-      this.message.push({ text: this.text });
+      console.log('发送l', this.text)
+      this.message.push({ text: this.text })
       const data = await axios.get(
         `http://81.68.176.64:3000/kefu?text=${this.text}`
-      );
-        //  console.log(data);
+      )
+      //  console.log(data);
       if (!data.data[0].talk) {
+        console.log('c')
       } else if (data.data[0].talk) {
-        this.message.push({ kefu: data.data[0].talk });
+        this.message.push({ kefu: data.data[0].talk })
         // window.pageYOffset = window.pageYOffset + 40;
         // console.log(window.pageYOffset);
-        this.$refs.scrooltop.scrollTop = this.$refs.scrooltop.scrollHeight - 40;
+        this.$refs.scrooltop.scrollTop = this.$refs.scrooltop.scrollHeight - 40
       } else {
+        console.log('1')
       }
       // console.log(this.mine);
     },
   },
-};
+}
 </script>
 
 <style lang="less" scoped>
@@ -231,7 +225,7 @@ export default {
   bottom: 0;
   width: 88%;
   height: 1.875rem;
-  padding: 0 .625rem;
+  padding: 0 0.625rem;
 }
 .dialogue {
   transition: all 2s;
@@ -240,8 +234,8 @@ export default {
     .right {
       text-align: right;
       width: 80%;
-      margin-right: .625rem;
-      margin: .3125rem 0;
+      margin-right: 0.625rem;
+      margin: 0.3125rem 0;
       p {
         width: 100px;
         text-align: right;
@@ -252,8 +246,8 @@ export default {
     .left {
       text-align: left;
       width: 80%;
-      margin-left: .625rem;
-      margin: .3125rem .625rem;
+      margin-left: 0.625rem;
+      margin: 0.3125rem 0.625rem;
       p {
         width: 100px;
         display: block;

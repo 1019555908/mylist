@@ -32,10 +32,7 @@
       </div>
       <div class="name">
         <span>
-          <img
-            src="https://image3.benlailife.com/Product/Tag/843d9315-8948-4994-b640-4e2d157af588.jpg"
-            alt
-          />
+          <img src="https://image3.benlailife.com/Product/Tag/843d9315-8948-4994-b640-4e2d157af588.jpg" alt />
         </span>
         <p>{{item.name}}</p>
       </div>
@@ -75,56 +72,56 @@
     </div>
     <div class="addnumber">
       <p>{{this.yemian.name}}</p>
-      <van-stepper v-model="value" theme="round" button-size="22" />
+      <van-stepper v-model="buynum" theme="round" button-size="22" />
     </div>
     <div class="bottom">
       <van-goods-action>
         <van-goods-action-icon icon="chat-o" text="客服" color="#ee0a24" />
         <van-goods-action-icon icon="cart-o" text="购物车" />
         <van-goods-action-icon icon="star" text="已收藏" color="#ff5000" />
-        <van-goods-action-button type="warning" text="加入购物车" @click="addcart" />
-        <van-goods-action-button type="danger" text="立即购买" />
+        <van-goods-action-button type="warning" text="加入购物车" @click="addcart(1)" />
+        <van-goods-action-button type="danger" text="立即购买" @click="buyshop(2)" />
       </van-goods-action>
     </div>
   </div>
 </template>
 
 <script>
-import Vue from "vue";
-import { Icon } from "vant";
-import { List } from "vant";
-import axios from "axios";
-import { GoodsAction, GoodsActionIcon, GoodsActionButton } from "vant";
-import { Swipe, SwipeItem } from "vant";
-import { Toast } from "vant";
-import { Stepper } from "vant";
+import Vue from 'vue'
+import { Icon } from 'vant'
+import { List } from 'vant'
+import axios from 'axios'
+import { GoodsAction, GoodsActionIcon, GoodsActionButton } from 'vant'
+import { Swipe, SwipeItem } from 'vant'
+import { Toast } from 'vant'
+import { Stepper } from 'vant'
 
-Vue.use(Stepper);
-Vue.use(Toast);
-Vue.use(Swipe);
-Vue.use(SwipeItem);
-Vue.use(GoodsAction);
-Vue.use(GoodsActionButton);
-Vue.use(GoodsActionIcon);
-Vue.use(List);
-Vue.use(Icon);
+Vue.use(Stepper)
+Vue.use(Toast)
+Vue.use(Swipe)
+Vue.use(SwipeItem)
+Vue.use(GoodsAction)
+Vue.use(GoodsActionButton)
+Vue.use(GoodsActionIcon)
+Vue.use(List)
+Vue.use(Icon)
 export default {
-  name: "BenlaaaShopxq",
+  name: 'BenlaaaShopxq',
   data() {
     return {
       yemian: [],
       id: 0,
-      value: 1,
-    };
+      buynum: 1,
+    }
   },
   created() {
-    console.log(this.$route);
-    this.id = Number(this.$route.params.id) + 1;
-    console.log(this.id);
+    console.log(this.$route)
+    this.id = Number(this.$route.params.id) + 1
+    console.log(this.id)
     axios.get(`http://81.68.176.64:3000/shopxq?id=${this.id}`).then((data) => {
       //   console.log(data.data);
-      this.yemian = data.data;
-    });
+      this.yemian = data.data
+    })
     // const data = await axios.post(`http://81.68.176.64:3000/verify`);
     // if (data.data.statusCode == 403) {
     //   Toast.fail("登录验证信息失效，请重新登录");
@@ -135,13 +132,13 @@ export default {
   mounted() {},
   methods: {
     back() {
-      this.$router.go(-1);
+      this.$router.go(-1)
     },
     addcart() {
       // console.log(this.id);
       // console.log(this.yemian[0]);
       if (window.localStorage.localMsg) {
-        var goods = {
+        let goods = {
           id: this.id,
           username: window.localStorage.username,
           img: this.yemian[0].bimg,
@@ -149,18 +146,37 @@ export default {
           name: this.yemian[0].name,
           sname: this.yemian[0].sname2,
           num: 1,
-        };
-        console.log(goods);
+        }
+        console.log(goods)
         axios.post(`http://81.68.176.64:3000/addcar`, goods).then((data) => {
           // data.data.push(goods)
-          console.log(data.data);
-        });
-      }else{
-      Toast.fail("尊敬的客户，您需要先登录一下再加入购物车哟！");
+          if (data) {
+            console.log(data.data)
+          }
+        })
+      } else {
+        Toast.fail('尊敬的客户，您需要先登录一下再加入购物车哟！')
+        setTimeout(() => {
+          this.$router.push('/login')
+        }, 1000)
+      }
+    },
+    buyshop() {
+      //立即购买
+      if (window.localStorage.localMsg) {
+        if (this.buynum) {
+          // console.log('q')
+          Toast.fail(`您选择了${this.buynum}件商品，这就为您下单`)
+        }
+      } else {
+        Toast.fail(`请先登录`)
+        setTimeout(() => {
+          this.$router.push('/login')
+        }, 1000)
       }
     },
   },
-};
+}
 </script>
 
 <style lang="less" scoped>
