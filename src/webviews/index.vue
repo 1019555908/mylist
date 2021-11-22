@@ -1,12 +1,12 @@
 <template>
   <div>
-    <h2>管理台</h2>
-    <div>
-      <leftcomponent id="left">
-        
-      </leftcomponent>
-      <top-component id="top"></top-component>
-      <content-component id="content"></content-component>
+    <!-- <h2>管理台</h2> -->
+    <div id="views">
+      <leftcomponent id="left"></leftcomponent>
+      <div id="viewscontent">
+        <top-component id="top"></top-component>
+        <content-component id="content"></content-component>
+      </div>
     </div>
   </div>
 </template>
@@ -26,11 +26,40 @@ export default {
     return {}
   },
 
-  mounted() {},
+  mounted() {
+    console.log('1', this.$store)
+  },
 
   methods: {},
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
+#views {
+  display: flex;
+  flex-wrap: nowrap;
+  #left {
+    float: left;
+    width: 200px;
+    height: 100%;
+    background-color: #263445;
+  }
+  #viewscontent {
+    width: 100%;
+    float: right;
+    height: 100%;
+    // display: flex;
+    // flex-wrap: wrap;
+
+    #top {
+      width: 100%;
+      height: 50px;
+      background-color: #f3f3f5;
+    }
+    #content {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
 </style>

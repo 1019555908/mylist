@@ -7,7 +7,7 @@
           <el-radio-button :label="true">收起</el-radio-button>
         </el-radio-group>
         <el-menu default-active="1-4-1" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose"
-          :collapse="isCollapse" background-color="#3873ad" text-color="#fff" active-text-color="#ffd04b">
+          :collapse="isCollapse" background-color="#263445" text-color="#fff" active-text-color="#ffd04b">
           <el-submenu index="1">
             <template slot="title">
               <i class="el-icon-location"></i>
@@ -30,7 +30,7 @@
             <i class="el-icon-menu"></i>
             <span slot="title">导航二</span>
           </el-menu-item>
-          <el-menu-item index="3" disabled>
+          <el-menu-item index="3" >
             <i class="el-icon-document"></i>
             <span slot="title">导航三</span>
           </el-menu-item>
@@ -75,16 +75,7 @@ export default {
   min-height: 400px;
 }
 #left {
-  width: 160px;
+  width: 200px;
   height: 100%;
-  //  background-color:#3873ad;
-  //   background-color: rgb(199, 197, 197);
-  //   ul {
-  //     li {
-  //       width: 100%;
-  //       height: 50px;
-  //       line-height: 50px;
-  //     }
-  //   }
 }
 </style>

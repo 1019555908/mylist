@@ -16,6 +16,7 @@
     "http-server": "^0.12.3",
     "less": "^4.1.1",
     "less-loader": "^5.0.0",
+    "moment": "^2.29.1",
     "sass-loader": "^12.3.0",
     "vant": "^2.12.12",
     "vue": "^2.6.11",

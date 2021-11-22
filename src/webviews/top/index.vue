@@ -1,6 +1,6 @@
 <template>
   <div>
-    
+    <h3>top</h3>
   </div>
 </template>
 
@@ -24,6 +24,6 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
 
 </style>

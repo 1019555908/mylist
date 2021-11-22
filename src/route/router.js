@@ -41,7 +41,7 @@ import shopxq from '../components/shopxq'
 Vue.use(VueRouter)
 const routes = [{
     path: '/',
-    redirect: '/box/box'
+    redirect: '/benlaiweb' //H5主页是/box/box
 }, {
     path: '/home',
     redirect: '/box/box'

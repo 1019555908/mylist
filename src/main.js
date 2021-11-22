@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './route/router.js'
 import size from './assets/js/size.js'
 import Router from 'vue-router'
-import store from './store/store'
+import store from './store/store.js'
 import { Lazyload } from 'vant';
 
 
