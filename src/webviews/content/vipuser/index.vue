@@ -69,10 +69,10 @@
       </el-row>
       <el-form-item>
         <div style="margin-left: 10px; display: inline-block">
-          <el-button type="primary" @click="addMember" v-per="'user-increase'">新增会员</el-button>
-          <el-button type="primary" @click="deleteMember" v-per="'user-delete'">退订新星会员</el-button>
-          <el-button type="primary" :loading="exportLoading" @click="educe()" v-per="'user-export'">导出</el-button>
-          <el-button type="primary" @click="getList()" v-per="'user-select'">查询</el-button>
+          <el-button type="primary" @click="addMember">新增会员</el-button>
+          <el-button type="primary" @click="deleteMember">退订新星会员</el-button>
+          <el-button type="primary" :loading="exportLoading" @click="educe()">导出</el-button>
+          <el-button type="primary" @click="getList()">查询</el-button>
           <el-button @click="reset">重置查询</el-button>
         </div>
       </el-form-item>
@@ -127,53 +127,7 @@
       <el-table-column align="center" label="是否为统一产品" prop="skuProvince" width="130"></el-table-column>
       <!-- <el-table-column align="center" label="SKU" prop="skuId" width="100"></el-table-column> -->
     </el-table>
-    <page :page="temp.page" :limit="temp.pageSize" :total="total" @pagination="getList" />
-    <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" width="460px">
-      <el-form :model="ruleForm" :rules="rules" ref="ruleForm">
-        <el-row :gutter="20" v-if="!flag">
-          <el-col :span="7">
-            <div style="font-size: 18px; padding-top: 10px">ID:</div>
-          </el-col>
-          <el-col :span="10">
-            <el-form-item prop="id" style="margin-left: -20px">
-              <el-input v-model.trim="ruleForm.id" style="width: 180px" placeholder="请输入"></el-input>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row :gutter="20">
-          <el-col :span="7">
-            <div style="font-size: 18px; padding-top: 10px">手机号:</div>
-          </el-col>
-          <el-col :span="10">
-            <el-form-item prop="phone" style="margin-left: -20px">
-              <el-input v-model.trim="ruleForm.phone" style="width: 180px" placeholder="请输入" maxlength="11"></el-input>
-            </el-form-item>
-          </el-col>
-        </el-row>
-
-        <el-row :gutter="20" v-if="flag">
-          <el-col :span="7">
-            <div style="font-size: 18px; padding-top: 10px">会员等级</div>
-          </el-col>
-          <el-col :span="10" style="margin-left: -20px">
-            <el-form-item prop="vipCode">
-              <el-select v-model="ruleForm.vipCode" clearable placeholder="会员等级">
-                <el-option v-for="item in marketStatus" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-        </el-row>
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="cancel()">取 消</el-button>
-        <el-button type="primary" @click="
-            dialogStatus === 'create'
-              ? createData('ruleForm')
-              : updateData('ruleForm')
-          ">确 定</el-button>
-      </div>
-    </el-dialog>
+<el-button @click="handleBtn">webscorket按钮</el-button>
   </div>
 </template>
 
@@ -187,7 +141,6 @@
 import moment from 'moment'
 export default {
   // eslint-disable-next-line no-undef
-  mixins: [provinceMixin],
   components: {},
   data() {
     return {
@@ -212,6 +165,7 @@ export default {
         queryTime: null,
         queryType: 0, //0：按月查询，1：全局查询
       },
+      msg:'',
       reTime: '',
       crTime: '',
       dialogStatus: '',
@@ -221,6 +175,9 @@ export default {
         update: '删除',
         create: '新增',
       },
+      provinceList: [],
+      provinceCodeList: [],
+      currentProvince: [],
       rules: {
         vipCode: [
           {
@@ -356,9 +313,36 @@ export default {
     },
   },
   mounted() {
+    var ws = new WebSocket("ws://localhost:3000");
+    console.log(ws);
     this.changeRadio('0')
+    ws.addEventListener('open',this.handelOpen.bind(this),false)
+    ws.addEventListener('close',this.handelClose.bind(this),false)
+    ws.addEventListener('error',this.handelError.bind(this),false)
+    ws.addEventListener('message',this.handelMessage.bind(this),false)
   },
   methods: {
+    handleBtn(){
+      const msg =this.msg
+      // console.log('send',ws)
+      
+    },
+    handelOpen(){
+      console.log('webopen')
+      
+    },
+    handelClose(){
+      console.log('webclose')
+      
+    },
+    handelError(){
+      console.log('weberror')
+      
+    },
+    handelMessage(){
+      console.log('webmessage')
+      
+    },
     changeRadio(radio) {
       this.resetForm()
       this.radio = radio
@@ -483,7 +467,7 @@ export default {
         if (valid) {
           this.listLoading = false
           if (this.radio === '0') {
-            // this.temp.queryTime = moment(this.temp.queryTime).format('YYYY-MM')
+            this.temp.queryTime = moment(this.temp.queryTime).format('YYYY-MM')
             let date = new Date(this.temp.queryTime)
             if (this.isValidDate(date)) {
               this.phoneNumber
@@ -621,7 +605,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .flex {
   margin: 10px 0;
 }

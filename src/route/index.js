@@ -24,7 +24,8 @@ const customer = () => import('../components/customer/customer')
 const search = () => import('../components/sort/search')
 const admin = () => import('../components/admin/admin')
 const benlaiweb = () => import('../webviews/index.vue')
+const benlaiwebvipuser = () => import('../webviews/content/vipuser/index.vue')
 export {
     box,oil,used,meat,home,deli,dairy,frult,water,drinks,snacks,kitchen,nourishing,vegetables,sort,sort1,sanji,mybl,eat,shopcar,
-    register,login,customer,search,admin,benlaiweb
+    register,login,customer,search,admin,benlaiweb,benlaiwebvipuser
 }

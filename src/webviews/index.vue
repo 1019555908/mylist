@@ -40,9 +40,9 @@ export default {
   flex-wrap: nowrap;
   #left {
     float: left;
-    width: 200px;
+    width: 160px;
     height: 100%;
-    background-color: #263445;
+    // background-color: #263445;
   }
   #viewscontent {
     width: 100%;

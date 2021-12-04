@@ -28,8 +28,9 @@ import {
     customer,
     search,
     admin,
-    benlaiweb
-
+    benlaiweb,
+    benlaiwebvipuser,
+    benlaiwebmemberCenter,
 } from './index'
 
 import my from '../components/my'
@@ -195,6 +196,22 @@ const routes = [{
     name: 'benlaiweb',
     meta: {
         bottomshow: false
+    }
+}, {
+    path: '/benlaiweb/memberCenter/vipuser',
+    component: benlaiwebvipuser,
+    name: 'vipuser',
+    meta: {
+          title: '会员',
+          bottomshow: false,
+    }
+}, {
+    path: '/benlaiweb/memberCenter/memberManagement',
+    component: benlaiwebmemberCenter,
+    name: 'vipuser',
+    meta: {
+          title: '会员详单',
+          bottomshow: false,
     }
 }]
 const router = new VueRouter({
