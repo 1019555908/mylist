@@ -320,6 +320,16 @@ export default {
     ws.addEventListener('close',this.handelClose.bind(this),false)
     ws.addEventListener('error',this.handelError.bind(this),false)
     ws.addEventListener('message',this.handelMessage.bind(this),false)
+    Array.prototype={}
+    console.log(Array);
+    const arr=[]
+    //  arr.__proto__===Array.prototype
+    // console.log('', arr.__proto__===Array.prototype)
+    
+   
+    arr.push(1)
+    console.log(arr)
+
   },
   methods: {
     handleBtn(){
